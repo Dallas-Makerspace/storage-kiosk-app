@@ -1,0 +1,70 @@
+<html>
+<head>
+<script type="text/javascript" src="../static/js/keyboard.js" charset="UTF-8"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/keyboard.css">
+</head>
+<body>
+<div class="block" id="autocomplete">
+<br>
+<input id="text" type="text" class="keyboardInput">
+<!--
+<div class="code ui-corner-all">
+<pre class="prettyprint lang-html">&lt;input id="text" type="text"&gt;</pre>
+<pre class="prettyprint lang-js">
+var availableTags = ["ActionScript", "AppleScript", "Asp", "BASIC"];
+
+$('#text')
+	.keyboard({ layout: 'qwerty' })
+	.autocomplete({
+		source: availableTags
+	})
+	// position options added after v1.23.4
+	.addAutocomplete({
+		position : {
+			of : null,        // when null, element will default to xb.$keyboard
+			my : 'right top', // 'center top', (position under keyboard)
+			at : 'left top',  // 'center bottom',
+			collision: 'flip'
+		}
+	})
+	.addTyping();</pre>
+-->
+    <div>
+        <div>
+          <div class="text-center">
+            <h1>DMS Project Storage Management System</h1>
+            <br/>
+            <h2>Please scan your RFID badge</h2>
+          </div>
+        </div>
+        <div class="row">
+            <div class="member-form">
+                <form action="" method="post" name="index">
+                    <div class="small-4 columns">
+                      &nbsp;
+                    </div>
+                    <div class="small-4 columns">
+                        (RFID number)<br/> form.member_id(class_="member_id", size=10, autofocus=true)
+                    </div>
+                    <div class="small-4 columns">
+                      &nbsp;
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="small-12 columns">
+                      <div class="text-center">
+                        Get a project storage ticket
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

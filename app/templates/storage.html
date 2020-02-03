@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if error %}
+<script>alert("Printer not ready.")</script>
+{% endif %}
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">DMS Project Storage</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#print">Print Ticket</a>
+                    </li>
+                    <li>
+                        <a href="#rules">Rules</a>
+                    </li>
+                    <li>
+                        <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div>
+
+        <div id="print">
+            <h2 class="featurette-heading">Print storage ticket</h2>
+            <p>A ticket is <span style="color:darkred">REQUIRED</span> on anything left at DMS</p>
+            <form id="form" method="post">
+
+                <div class="form-group">
+                    Member ID
+                    <div class="col-lg-3">
+                        <input autofocus type="text" readonly class="form-control" name="memberID"
+                            placeholder="Member ID" value="{{ memberID }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Start
+                    <div class="col-lg-3">
+                        <input autofocus type="text" readonly class="form-control" name="start"
+                            placeholder="Start" value="{{ start }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Slot ID
+                    <div class="col-lg-3">
+                        <input autofocus type="text" class="form-control" name="slotID"
+                            placeholder="Slot ID" value="{{ slotID }}"
+                             class="keyboardInput">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Username
+                    <div class="col-lg-3">
+                        <input type="text" readonly class="form-control" name="userName"
+                            placeholder="Username" value="{{ userName }}">
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Name
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" name="name"
+                            placeholder="Name" value="{{ fullName }}">
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Email
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" name="email"
+                            placeholder="Email" value="{{ email }}">
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Phone #
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" name="phone"
+                            placeholder="Phone #" value="{{ phone }}">
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Description
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="description"
+                            placeholder="Short description of project being stored"
+                            value="{{ description }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Completion date
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="completion"
+                            placeholder="Expected project completion date"
+                            value="{{ expire }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Storage Type
+                    <div class="col-lg-3">
+                        <select class="form-control" name="storageType"
+                            id="storageType">
+                            <option selected value="Small Shelf">Small Shelf</option>
+                            <option value="Large Shelf">Large Shelf</option>
+                            <option value="Vertical">Vertical</option>
+                            <option value="Pallet">Pallet</option>
+                        </select>
+                    </div>
+                </div>
+
+                <script>
+
+                function setStorageType(s, v)
+                   {
+                   for ( var i = 0; i < s.options.length; i++ )
+                     if ( s.options[i].text == v )
+                       {
+                       s.options[i].selected = true;
+                       return;
+                       }
+                   }
+
+                setStorageType(document.getElementById('storageType'),
+                  "{{ setStorageType }}");
+
+                </script>
+
+                <div class="form-group">
+                    <div class="col-lg-7 col-md-offset-2">
+                        <div id="messages"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-lg-2"></span>
+                    <div class="col-lg-5">
+                        <button class="btn btn-primary" type="submit"
+                            name="submit" value="print"
+                            id="submit">Print Ticket that expires on <span id="expireDate">NEXT FIRST SUNDAY OF MONTH</span></button>
+                        <button class="btn btn-primary" type="submit"
+                            name="submit" value="cancel"
+                            id="submit">Cancel</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-7 col-md-offset-2">
+                        <div id="result" class="error"></div>
+                    </div>
+                </div>
+            </form>
+
+            <p>You agree to remove your item before <span id="expireDate">NEXT FIRST SUNDAY OF MONTH</span> or attend the monthly
+                storage meeting to request an extension</p>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- First Featurette -->
+        <div id="rules">
+            <h2 class="featurette-heading">Project Storage Rules</h2>
+            <p>The Logistics Committee hosts the Dallas Makerspace's Storage
+                Meeting on a monthly basis - typically on the first Sunday of
+                each month at 4PM in the Conference room. At this meeting,
+                advice and guidance is given to all of the affected operating
+                committees to manage and coordinate a unified and transparent
+                storage policy at the Dallas Makerspace. Although each
+                committee technically maintains control over its own area,
+                storage issues often transcend the domain of any one
+                committee and the Storage Meeting provides a forum to help
+                coordinate these policies.</p>
+            <ul style="line-height:1.5;">
+                <li><b>USING STORAGE:</b> Select a storage slot, print out a
+                    Storage Ticket and fill the slot taking care not to
+                    present a hazard or to have forbidden items (see wiki.)
+                    Vacate your slot before the printed expiration date, or
+                    if you need more time, attend a Storage Extension Meeting
+                    (or have someone act as an Agent on your behalf) to be
+                    extended for one additional calendar month.</li>
+                <li><b>USING PROJECT STORAGE (shelves):</b> Insert your
+                    completed Storage Ticket in the slot, occupy it, and
+                    keep your project visually separate from adjacent slots</li>
+                <li><b>USING PALLET STORAGE:</b> Load your pallet and park it
+                    under the shelves with the completed storage ticket in
+                    the slot or in pallet storage with ticket visibly
+                    attached. Situate materials so they remain stable.</li>
+                <li><b>USING FLOOR STORAGE:</b> Contact @Team_Logistics on
+                    the DMS Talk forums prior to using floor storage for more
+                    than 24 hours.</li>
+                <li><b>EXTENSIONS:</b> You or an agent must attend a Storage
+                    Meeting (typically 1st Sunday of the month) in person to
+                    request a single extension.  Additional extensions will
+                    require justification.</li>
+                <li><b>REMOVALS:</b> Projects that have exceeded the date
+                    printed on the Storage Ticket will be tagged for removal
+                    in 7 days and members are to remove them by the printed
+                    date on the Removal Notice; after this date they may be
+                    relocated to Offsite Storage at any time.</li>
+                <li><b>DISPOSAL OF PROJECTS:</b> Projects removed to offsite
+                    storage will be disposed of the following month when the
+                    next round of projects are moved to offsite storage.</li>
+                <li><b>ACCESSING OFFSITE STORAGE:</b> Assured Self Storage,
+                    2444 Luna Road Carrollton TX, Unit 1000.  The gate code and
+                    key lock code is located below Storage Kiosk</li>
+            </ul>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- Third Featurette -->
+        <div class="featurette" id="contact">
+            <h2 class="featurette-heading">Contact Logistics</h2>
+            <p class="lead">Email logistics@dallasmakerspace.org or attend a Logistics/Storage Meeting.
+            </p>
+        </div>
+
+    </div>
+{% endblock %}
